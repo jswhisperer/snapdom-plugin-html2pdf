@@ -1,6 +1,6 @@
 # snapdom full pdf plugin
 
-A [SnapDOM](https://github.com/zumerlab/snapdom) plugin that renders a webpage as a pdf with selectable text and links via html2pdf.js
+A [SnapDOM](https://github.com/zumerlab/snapdom) plugin that renders a webpage as a pdf with selectable text and links via [html2pdf.js](https://ekoopmans.github.io/html2pdf.js)
 
 ## Install
 
