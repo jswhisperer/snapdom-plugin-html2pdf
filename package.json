@@ -1,5 +1,5 @@
 {
-  "name": "snapdom-plugin-template",
+  "name": "snapdom-realpdf-plugin",
   "version": "1.0.0",
   "description": "A starter template for building SnapDOM plugins",
   "type": "module",
@@ -17,11 +17,11 @@
     "dom-capture",
     "plugin-template"
   ],
-  "author": "Juan Martin Muda",
+  "author": "jswhisperer",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zumerlab/snapdom.git",
+    "url": "git+https://github.com/jswhisperer/snapdom-plugin-fullpdf",
     "directory": "packages/plugin-template"
   },
   "bugs": {
