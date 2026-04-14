@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SnapDOM + PDF (demo)</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@zumer/snapdom": "https://esm.sh/@zumer/snapdom@2.8.0",
+          "html2pdf.js": "https://esm.sh/html2pdf.js@0.14.0?bundle",
+          "snapdom-realpdf-plugin": "../index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="page">
+      <p class="serve">
+        Serve the <strong>repository root</strong> (not only <code>demo/</code>) and open
+        <code>/demo/index.html</code> so the import map resolves the plugin at <code>../index.js</code>.
+      </p>
+
+      <h1>Element to PDF</h1>
+
+      <section id="capture" class="card">
+        <h2>Sample block</h2>
+        <p>Some text and <a href="https://github.com/zumerlab/snapdom">a test link</a>.</p>
+      </section>
+
+      <label class="field" for="pdf-preset">html2pdf options</label>
+      <select id="pdf-preset" class="select">
+        <option value="default">A4, 12 mm margins</option>
+        <option value="tight">Minimal margins</option>
+      </select>
+
+      <div class="actions">
+        <button type="button" id="download-pdf">Download PDF</button>
+        <span id="status" class="status"></span>
+      </div>
+    </main>
+
+    <script type="module">
+      import { snapdom } from "@zumer/snapdom"
+      import { fullPdf } from "snapdom-realpdf-plugin"
+
+      const PRESETS = {
+        default: {
+          filename: "capture.pdf",
+          margin: 12,
+          enableLinks: true,
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        },
+        tight: {
+          filename: "capture-tight.pdf",
+          margin: 4,
+          enableLinks: true,
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        },
+      }
+
+      snapdom.plugins([
+        [
+          fullPdf,
+          {
+            filename: "capture.pdf",
+            margin: 12,
+            enableLinks: true,
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          },
+        ],
+      ])
+
+      const capture = document.getElementById("capture")
+      const btn = document.getElementById("download-pdf")
+      const status = document.getElementById("status")
+      const preset = document.getElementById("pdf-preset")
+
+      btn.addEventListener("click", async () => {
+        status.textContent = "Generating…"
+        btn.disabled = true
+        try {
+          const html2pdf = PRESETS[preset.value]
+          const result = await snapdom(capture)
+          await result.toPdf({ element: capture, html2pdf })
+          status.textContent = "Done."
+        } catch (e) {
+          console.error(e)
+          status.textContent = String(e && e.message ? e.message : e)
+        } finally {
+          btn.disabled = false
+        }
+      })
+    </script>
+  </body>
+</html>

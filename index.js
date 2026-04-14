@@ -2,10 +2,10 @@ import html2pdf from "html2pdf.js"
 
 export function html2js(options = {}) {
   return {
-    name: "html2js",
+    name: "html2pdf",
     defineExports() {
       return {
-        html2js: async (ctx, opts = {}) => {
+        html2pdf: async (ctx, opts = {}) => {
           const bodyElement = opts.element || document.querySelector("body")
           if (bodyElement) {
             try {
@@ -23,4 +23,4 @@ export function html2js(options = {}) {
   }
 }
 
-export default html2js
+export default html2pdf
