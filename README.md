@@ -5,8 +5,7 @@ A [SnapDOM](https://github.com/zumerlab/snapdom) plugin that renders a webpage a
 ## Install
 
 ```bash
-# npm coming soon....
-clone https://github.com/jswhisperer/snapdom-plugin-fullpdf
+npm i snapdom-html2pdf-plugin
 ```
 
 ```js
